@@ -42,3 +42,19 @@ export type ServerActionResponse<T = undefined> =
 export type ServerAction<Input = void, Output = undefined> = (
   args: Input
 ) => Promise<ServerActionResponse<Output>>
+
+/**
+ * Props for Next.js page components
+ */
+export type PageProps<_T extends string = never> = {
+  params: Promise<Record<string, string>>
+  searchParams: Promise<Record<string, string | string[] | undefined>>
+}
+
+/**
+ * Props for Next.js layout components
+ */
+export type LayoutProps<_T extends string = never> = {
+  children: React.ReactNode
+  params: Promise<Record<string, string>>
+}
