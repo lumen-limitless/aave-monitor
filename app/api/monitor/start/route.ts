@@ -1,11 +1,11 @@
-import { NextResponse } from "next/server"
+import { NextResponse } from "next/server";
 
-import { startMonitor } from "@/lib/monitor"
+import { startMonitor } from "@/lib/monitor";
 
 export async function POST() {
   try {
-    const result = startMonitor()
-    return NextResponse.json(result, { status: result.success ? 200 : 400 })
+    const result = startMonitor();
+    return NextResponse.json(result, { status: result.success ? 200 : 400 });
   } catch (error) {
     return NextResponse.json(
       {
@@ -13,6 +13,6 @@ export async function POST() {
         message: error instanceof Error ? error.message : "Unknown error",
       },
       { status: 500 }
-    )
+    );
   }
 }

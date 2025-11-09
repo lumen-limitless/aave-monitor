@@ -1,118 +1,118 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 
 interface MonitorState {
-  isRunning: boolean
-  lastCheck: string | null
-  lastNotification: string | null
-  currentHealthFactor: number | null
-  error: string | null
-  checkCount: number
+  isRunning: boolean;
+  lastCheck: string | null;
+  lastNotification: string | null;
+  currentHealthFactor: number | null;
+  error: string | null;
+  checkCount: number;
 }
 
 export function MonitorControls() {
-  const [state, setState] = useState<MonitorState | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [actionLoading, setActionLoading] = useState(false)
+  const [state, setState] = useState<MonitorState | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [actionLoading, setActionLoading] = useState(false);
 
   const fetchStatus = async () => {
     try {
-      const response = await fetch("/api/monitor/status")
-      const result = await response.json()
+      const response = await fetch("/api/monitor/status");
+      const result = await response.json();
 
       if (result.success) {
-        setState(result.data)
+        setState(result.data);
       }
     } catch (_err) {
-      console.error("Failed to fetch monitor status:", _err)
+      console.error("Failed to fetch monitor status:", _err);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
-    fetchStatus()
+    fetchStatus();
     // Refresh every 10 seconds
-    const interval = setInterval(fetchStatus, 10000)
-    return () => clearInterval(interval)
-  }, [])
+    const interval = setInterval(fetchStatus, 10_000);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleStart = async () => {
-    setActionLoading(true)
+    setActionLoading(true);
     try {
-      const response = await fetch("/api/monitor/start", { method: "POST" })
-      const result = await response.json()
+      const response = await fetch("/api/monitor/start", { method: "POST" });
+      const result = await response.json();
 
       if (result.success) {
-        await fetchStatus()
+        await fetchStatus();
       } else {
-        alert(result.message)
+        alert(result.message);
       }
     } catch (_err) {
-      alert("Failed to start monitor")
+      alert("Failed to start monitor");
     } finally {
-      setActionLoading(false)
+      setActionLoading(false);
     }
-  }
+  };
 
   const handleStop = async () => {
-    setActionLoading(true)
+    setActionLoading(true);
     try {
-      const response = await fetch("/api/monitor/stop", { method: "POST" })
-      const result = await response.json()
+      const response = await fetch("/api/monitor/stop", { method: "POST" });
+      const result = await response.json();
 
       if (result.success) {
-        await fetchStatus()
+        await fetchStatus();
       } else {
-        alert(result.message)
+        alert(result.message);
       }
     } catch (_err) {
-      alert("Failed to stop monitor")
+      alert("Failed to stop monitor");
     } finally {
-      setActionLoading(false)
+      setActionLoading(false);
     }
-  }
+  };
 
   const handleForceCheck = async () => {
-    setActionLoading(true)
+    setActionLoading(true);
     try {
-      const response = await fetch("/api/monitor/check", { method: "POST" })
-      const result = await response.json()
+      const response = await fetch("/api/monitor/check", { method: "POST" });
+      const result = await response.json();
 
       if (result.success) {
-        await fetchStatus()
-        alert("Health factor check completed")
+        await fetchStatus();
+        alert("Health factor check completed");
       } else {
-        alert(result.error || "Failed to check health factor")
+        alert(result.error || "Failed to check health factor");
       }
     } catch (_err) {
-      alert("Failed to check health factor")
+      alert("Failed to check health factor");
     } finally {
-      setActionLoading(false)
+      setActionLoading(false);
     }
-  }
+  };
 
   if (loading) {
     return (
       <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
         <div className="animate-pulse">
-          <div className="mb-4 h-6 w-32 rounded bg-gray-200"></div>
-          <div className="h-10 w-full rounded bg-gray-200"></div>
+          <div className="mb-4 h-6 w-32 rounded bg-gray-200" />
+          <div className="h-10 w-full rounded bg-gray-200" />
         </div>
       </div>
-    )
+    );
   }
 
   return (
     <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-      <h3 className="mb-4 text-lg font-semibold">Monitor Controls</h3>
+      <h3 className="mb-4 font-semibold text-lg">Monitor Controls</h3>
 
       <div className="mb-4 flex items-center gap-2">
         <div
           className={`h-3 w-3 rounded-full ${state?.isRunning ? "bg-green-500" : "bg-gray-400"}`}
-        ></div>
-        <span className="text-sm font-medium">
+        />
+        <span className="font-medium text-sm">
           {state?.isRunning ? "Running" : "Stopped"}
         </span>
       </div>
@@ -148,35 +148,35 @@ export function MonitorControls() {
       </div>
 
       <div className="flex gap-2">
-        {!state?.isRunning ? (
-          <button
-            onClick={handleStart}
-            disabled={actionLoading}
-            className="flex-1 rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700 disabled:opacity-50"
-          >
-            {actionLoading ? "Starting..." : "Start Monitor"}
-          </button>
-        ) : (
+        {state?.isRunning ? (
           <>
             <button
-              onClick={handleStop}
-              disabled={actionLoading}
               className="flex-1 rounded bg-red-600 px-4 py-2 text-white hover:bg-red-700 disabled:opacity-50"
+              disabled={actionLoading}
+              onClick={handleStop}
             >
               {actionLoading ? "Stopping..." : "Stop Monitor"}
             </button>
             <button
-              onClick={handleForceCheck}
-              disabled={actionLoading}
               className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
+              disabled={actionLoading}
+              onClick={handleForceCheck}
             >
               Check Now
             </button>
           </>
+        ) : (
+          <button
+            className="flex-1 rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700 disabled:opacity-50"
+            disabled={actionLoading}
+            onClick={handleStart}
+          >
+            {actionLoading ? "Starting..." : "Start Monitor"}
+          </button>
         )}
       </div>
 
-      <div className="mt-4 rounded border border-blue-200 bg-blue-50 p-3 text-sm text-blue-900">
+      <div className="mt-4 rounded border border-blue-200 bg-blue-50 p-3 text-blue-900 text-sm">
         <p className="font-medium">ℹ️ How it works:</p>
         <ul className="mt-1 ml-4 list-disc space-y-1 text-xs">
           <li>Monitor checks your health factor periodically</li>
@@ -185,5 +185,5 @@ export function MonitorControls() {
         </ul>
       </div>
     </div>
-  )
+  );
 }

@@ -1,9 +1,9 @@
-import type { Metadata } from "next"
+import type { Metadata } from "next";
 
 export const APP_DESCRIPTION =
-  "A Next.js starter with TypeScript, TailwindCSS, ESLint, Prettier, Jest, and more."
+  "A Next.js starter with TypeScript, TailwindCSS, ESLint, Prettier, Jest, and more.";
 
-export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "Next.js Starter"
+export const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME || "Next.js Starter";
 
 export const baseUrl = new URL(
   process.env.NEXT_PUBLIC_APP_URL
@@ -15,7 +15,7 @@ export const baseUrl = new URL(
         ? process.env.NEXT_PUBLIC_VERCEL_URL
         : `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
       : "http://localhost:3000"
-)
+);
 
 export const defaultMetadata: Metadata = {
   title: {
@@ -65,4 +65,4 @@ export const defaultMetadata: Metadata = {
     address: false,
     telephone: false,
   },
-}
+};

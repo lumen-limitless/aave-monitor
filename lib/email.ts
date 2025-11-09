@@ -1,13 +1,13 @@
-import { Resend } from "resend"
+import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export interface HealthFactorNotificationData {
-  address: string
-  healthFactor: string
-  threshold: string
-  totalCollateral: string
-  totalDebt: string
+  address: string;
+  healthFactor: string;
+  threshold: string;
+  totalCollateral: string;
+  totalDebt: string;
 }
 
 /**
@@ -16,14 +16,14 @@ export interface HealthFactorNotificationData {
 export async function sendHealthFactorAlert(
   data: HealthFactorNotificationData
 ): Promise<{ success: boolean; error?: string }> {
-  const notificationEmail = process.env.NOTIFICATION_EMAIL
+  const notificationEmail = process.env.NOTIFICATION_EMAIL;
 
   if (!notificationEmail) {
-    return { success: false, error: "NOTIFICATION_EMAIL is not set" }
+    return { success: false, error: "NOTIFICATION_EMAIL is not set" };
   }
 
   if (!process.env.RESEND_API_KEY) {
-    return { success: false, error: "RESEND_API_KEY is not set" }
+    return { success: false, error: "RESEND_API_KEY is not set" };
   }
 
   try {
@@ -100,15 +100,15 @@ export async function sendHealthFactorAlert(
           </body>
         </html>
       `,
-    })
+    });
 
-    return { success: true }
+    return { success: true };
   } catch (error) {
-    console.error("Failed to send email:", error)
+    console.error("Failed to send email:", error);
     return {
       success: false,
       error: error instanceof Error ? error.message : "Unknown error",
-    }
+    };
   }
 }
 
@@ -116,17 +116,17 @@ export async function sendHealthFactorAlert(
  * Send test email to verify configuration
  */
 export async function sendTestEmail(): Promise<{
-  success: boolean
-  error?: string
+  success: boolean;
+  error?: string;
 }> {
-  const notificationEmail = process.env.NOTIFICATION_EMAIL
+  const notificationEmail = process.env.NOTIFICATION_EMAIL;
 
   if (!notificationEmail) {
-    return { success: false, error: "NOTIFICATION_EMAIL is not set" }
+    return { success: false, error: "NOTIFICATION_EMAIL is not set" };
   }
 
   if (!process.env.RESEND_API_KEY) {
-    return { success: false, error: "RESEND_API_KEY is not set" }
+    return { success: false, error: "RESEND_API_KEY is not set" };
   }
 
   try {
@@ -148,14 +148,14 @@ export async function sendTestEmail(): Promise<{
           </body>
         </html>
       `,
-    })
+    });
 
-    return { success: true }
+    return { success: true };
   } catch (error) {
-    console.error("Failed to send test email:", error)
+    console.error("Failed to send test email:", error);
     return {
       success: false,
       error: error instanceof Error ? error.message : "Unknown error",
-    }
+    };
   }
 }

@@ -1,26 +1,26 @@
-import { cn } from "@/lib/utils"
-import { Viewport } from "next"
-import { Roboto } from "next/font/google"
-import { defaultMetadata } from "../lib/metadata"
-import "./globals.css"
+import type { Viewport } from "next";
+import { Roboto } from "next/font/google";
+import { cn } from "@/lib/utils";
+import { defaultMetadata } from "../lib/metadata";
+import "./globals.css";
 
 const roboto = Roboto({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
-})
+});
 
-export const metadata = defaultMetadata
+export const metadata = defaultMetadata;
 
 export const viewport: Viewport = {
   themeColor: "#FFFFFF",
-}
+};
 
 export default function RootLayout(props: LayoutProps<"/">) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html className="scroll-smooth" lang="en" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
       </head>
 
       <body
@@ -30,36 +30,36 @@ export default function RootLayout(props: LayoutProps<"/">) {
         )}
       >
         <a
-          href="#main"
-          className="sr-only absolute top-[-999px] left-[-999px] block border bg-[#ffc] text-black focus:not-sr-only focus:top-0 focus:bottom-0 focus:border-[#990000]"
           aria-label="skip"
+          className="sr-only absolute top-[-999px] left-[-999px] block border bg-[#ffc] text-black focus:not-sr-only focus:top-0 focus:bottom-0 focus:border-[#990000]"
+          href="#main"
           id="skip"
         >
           Skip Content
         </a>
 
         <header
-          id="header"
           className="sticky top-0 z-20 flex h-16 w-full items-center border-b bg-white px-5"
+          id="header"
         >
           <div className="flex w-full items-center justify-between">
-            <h1 className="text-xl font-bold">📊 Aave Monitor</h1>
+            <h1 className="font-bold text-xl">📊 Aave Monitor</h1>
             <a
+              className="text-blue-600 text-sm hover:text-blue-800"
               href="https://app.aave.com/"
-              target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-blue-600 hover:text-blue-800"
+              target="_blank"
             >
               Open Aave App →
             </a>
           </div>
         </header>
 
-        <main id="main" className="grow">
+        <main className="grow" id="main">
           {props.children}
         </main>
 
-        <footer id="footer" className="flex h-16 items-center border-t px-5">
+        <footer className="flex h-16 items-center border-t px-5" id="footer">
           <p className="text-sm">
             &copy; {new Date().getFullYear()} Lumen Limitless. All rights
             reserved.
@@ -69,11 +69,11 @@ export default function RootLayout(props: LayoutProps<"/">) {
         <TailwindIndicator />
       </body>
     </html>
-  )
+  );
 }
 
 const TailwindIndicator = () => {
-  if (process.env.NODE_ENV === "production") return null
+  if (process.env.NODE_ENV === "production") return null;
 
   return (
     <div className="fixed bottom-0 left-0 z-50 bg-black p-2 font-mono text-sm text-white">
@@ -85,5 +85,5 @@ const TailwindIndicator = () => {
       <span className="3xl:hidden hidden 2xl:block">2XL</span>
       <span className="3xl:block hidden">3XL</span>
     </div>
-  )
-}
+  );
+};
