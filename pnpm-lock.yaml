@@ -58,8 +58,8 @@ importers:
         specifier: 15.5.3
         version: 15.5.3
       '@next/env':
-        specifier: 15.5.3
-        version: 15.5.3
+        specifier: 16.0.1
+        version: 16.0.1
       '@playwright/test':
         specifier: 1.55.0
         version: 1.55.0
@@ -1130,6 +1130,9 @@ packages:
 
   '@next/env@15.5.3':
     resolution: {integrity: sha512-RSEDTRqyihYXygx/OJXwvVupfr9m04+0vH8vyy0HfZ7keRto6VX9BbEk0J2PUk0VGy6YhklJUSrgForov5F9pw==}
+
+  '@next/env@16.0.1':
+    resolution: {integrity: sha512-LFvlK0TG2L3fEOX77OC35KowL8D7DlFF45C0OvKMC4hy8c/md1RC4UMNDlUGJqfCoCS2VWrZ4dSE6OjaX5+8mw==}
 
   '@next/swc-darwin-arm64@15.5.3':
     resolution: {integrity: sha512-nzbHQo69+au9wJkGKTU9lP7PXv0d1J5ljFpvb+LnEomLtSbJkbZyEs6sbF3plQmiOB2l9OBtN2tNSvCH1nQ9Jg==}
@@ -4748,6 +4751,8 @@ snapshots:
       - utf-8-validate
 
   '@next/env@15.5.3': {}
+
+  '@next/env@16.0.1': {}
 
   '@next/swc-darwin-arm64@15.5.3':
     optional: true
