@@ -55,7 +55,7 @@
     "node-cron": "^4.2.1",
     "resend": "^6.4.1",
     "ts-node": "10.9.2",
-    "typescript": "5.9.2",
+    "typescript": "5.9.3",
     "ultracite": "6.3.2",
     "viem": "^2.38.6"
   },
